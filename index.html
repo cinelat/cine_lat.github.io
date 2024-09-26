@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz de Películas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e50914;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            letter-spacing: 1px;
+            font-family: 'Arial Black', sans-serif;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-buttons a {
+            background-color: transparent;
+            border: 2px solid #e50914;
+            color: #e50914;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            opacity: 0.8;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #e50914;
+            color: #ffffff;
+            transform: translateY(-2px);
+            opacity: 1;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 400px; /* Altura fija para el carrusel */
+            object-fit: cover; /* Ajusta la imagen para cubrir el área */
+            border-radius: 10px;
+        }
+
+        .carousel-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #ffffff;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-button {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+            font-size: 24px;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .section {
+            margin: 20px 0;
+        }
+
+        .section h3 {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .see-more {
+            text-decoration: none;
+            color: #e50914;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .see-more:hover {
+            color: #f40612;
+        }
+
+        .movie-grid {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            scroll-behavior: smooth;
+        }
+
+        .movie-card {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            min-width: 200px; /* Tamaño mínimo de cada tarjeta */
+            margin-right: 15px; /* Espacio entre tarjetas */
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+        }
+
+        .movie-card img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 100%;
+            height: 300px; /* Altura fija para las imágenes */
+            object-fit: cover; /* Ajusta la imagen para cubrir el área */
+        }
+
+        .movie-card h2, .movie-card p {
+            text-align: center;
+            padding: 5px 0;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="logo">CINE LAT</a>
+            <div class="nav-buttons">
+                <a href="inicio.html" title="Inicio"><i class="fas fa-home"></i> Inicio</a>
+                <a href="buscar.html" title="Buscar"><i class="fas fa-search"></i> Buscar</a>
+                <a href="anime.html" title="Animes"><i class="fas fa-film"></i> Animes</a>
+            </div>
+        </header>
+
+        <div class="carousel">
+            <div class="carousel-inner">
+                <a href="pelicula1.html" class="carousel-item">
+                    <img src="https://ticketdirect.co.nz/wp-content/uploads/2024/06/deadpool-and-wolverine-poster-reald-3d-cropped.jpg" alt="Película 1">
+                    <div class="carousel-title">DeadPool</div>
+                </a>
+                <a href="pelicula2.html" class="carousel-item">
+                    <img src="https://paramountpictures.com.mx/ppm_banners_titulos/472_bg.jpg" alt="Película 2">
+                    <div class="carousel-title">Sonic 3 TRAILER</div>
+                </a>
+                <a href="pelicula3.html" class="carousel-item">
+                    <img src="https://i0.wp.com/lavidaesunvideojuego.com/wp-content/uploads/2020/03/1572918339_320934_1573142734_noticia_normal.jpg?fit=1200%2C675&ssl=1" alt="Película 3">
+                    <div class="carousel-title">One Puch Man</div>
+                </a>
+                <a href="pelicula4.html" class="carousel-item">
+                    <img src="https://i.ytimg.com/vi/ArBtzJS2Cp4/maxresdefault.jpg" alt="Película 4">
+                    <div class="carousel-title">FNAF</div>
+                </a>
+                <a href="pelicula5.html" class="carousel-item">
+                    <img src="https://i.ytimg.com/vi/x40yYz2VmrA/maxresdefault.jpg" alt="Película 5">
+                    <div class="carousel-title">INTENSAMENTE 3 TRAILER</div>
+                </a>
+            </div>
+            <div class="carousel-buttons">
+                <button class="carousel-button" id="prevBtn">&#10094;</button>
+                <button class="carousel-button" id="nextBtn">&#10095;</button>
+            </div>
+        </div>
+
+        <main>
+            <div class="section">
+                <h3>Top 10 de Este Año <a href="top10.html" class="see-more">Ver Más</a></h3>
+                <div class="movie-grid">
+                    <div class="movie-card">
+                        <a href="pelicula1.html"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjuE4cbPqubZPqvDePZxvYa1tF7dZcX20CI2Sc2qEFWOfHl3KSkaK_59BKOIIiDUsqX3faeW3xfr9Zfy46pw_cBr74qidQXaW0Ncbq_Lyt7AErAD0VVrVSrVjwwJ-zwB5TZoakVXei0JONhDn9BzeOPG_2EgeB_-ixHIh8po-V3eqMBL-ftdBWXZoAwqQ/s16000/Agente%20cintur%C3%B3n%20negro%20(2024).jpg" alt="Película 1"></a>
+                        <h2>Oficial Cinturon Negro</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="pelicula2.html"><img src="https://lh4.googleusercontent.com/proxy/lKGkrRdMvs8r1BNgqoOhmDUt_722URkd9Hn-DtrEFXDHwQbKabebRzY5G09GQLewLCw3YOqI9iqSMq920BTfajVn_UzsMA" alt="Película 2"></a>
+                        <h2>Bad Boys:Hasta La Muerte</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="pelicula3.html"><img src="https://www.universalpictures.com.mx/tl_files/content/movies/despicable_me_4/posters/02.jpg" alt="Película 3"></a>
+                        <h2>Mi Villano Favorito 4</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="pelicula4.html"><img src="https://media.fstatic.com/fHVjf9kdj2erVxixXwdxckEx_Bc=/322x478/smart/filters:format(webp)/media/movies/covers/2024/08/869h08Na5eHvo6R0ntGLs9Uqb95.jpg" alt="Película 4"></a>
+                        <h2>Jackpot:Loteria Mortal</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="pelicula5.html"><img src="https://images.fathomevents.com/image/upload/w_400,dpr_2,f_auto,q_auto/v1727118642/Events/2024/1971/Ticketing%20Thumbnail_1000x1480.jpg.jpg" alt="Película 5"></a>
+                        <h2>Dragon Ball:Daima TRAILER</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>ANIMES <a href="anime.html" class="see-more">Ver Más</a></h3>
+                <div class="movie-grid">
+                    <div class="movie-card">
+                        <a href="anime1.html"><img src="https://i.blogs.es/84cab4/demon-slayer-kimetsu-no-yaiba-temporada-4-fecha-estreno-mexico-crunchyroll-12-mayo/650_1200.jpeg" alt="Anime 1"></a>
+                        <h2>Demon Slayer T4</h2>
+                        <p>Género: Aventura</p>
+                    </div>
+                    <div class="movie-card">
+                        <a href="anime2.html"><img src="https://via.placeholder.com/200x300" alt="Anime 2"></a>
+                        <h2>Anime 2</h2>
+                        <p>Género: Fantasía</p>
+                    </div>
+                    <div class="movie-card">
+                        <a href="anime3.html"><img src="https://via.placeholder.com/200x300" alt="Anime 3"></a>
+                        <h2>Anime 3</h2>
+                        <p>Género: Acción</p>
+                    </div>
+                    <div class="movie-card">
+                        <a href="anime4.html"><img src="https://via.placeholder.com/200x300" alt="Anime 4"></a>
+                        <h2>Anime 4</h2>
+                        <p>Género: Romance</p>
+                    </div>
+                    <div class="movie-card">
+                        <a href="anime5.html"><img src="https://via.placeholder.com/200x300" alt="Anime 5"></a>
+                        <h2>Anime 5</h2>
+                        <p>Género: Ciencia Ficción</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>TERROR <a href="terror.html" class="see-more">Ver Más</a></h3>
+                <div class="movie-grid">
+                    <div class="movie-card">
+                        <a href="terror1.html"><img src="https://via.placeholder.com/200x300" alt="Terror 1"></a>
+                        <h2>Terror 1</h2>
+                        <p>Género: Terror</p>
+                    </div>
+                    <div class="movie-card">
+                        <a href="terror2.html"><img src="https://via.placeholder.com/200x300" alt="Terror 2"></a>
+                        <h2>Terror 2</h2>
+                        <p>Género: Terror</p>
+                    </div>
+                    <div class="movie-card">
+                        <a href="terror3.html"><img src="https://via.placeholder.com/200x300" alt="Terror 3"></a>
+                        <h2>Terror 3</h2>
+                        <p>Género: Terror</p>
+                    </div>
+                    <div class="movie-card">
+                        <a href="terror4.html"><img src="https://via.placeholder.com/200x300" alt="Terror 4"></a>
+                        <h2>Terror 4</h2>
+                        <p>Género: Terror</p>
+                    </div>
+                    <div class="movie-card">
+                        <a href="terror5.html"><img src="https://via.placeholder.com/200x300" alt="Terror 5"></a>
+                        <h2>Terror 5</h2>
+                        <p>Género: Terror</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>COMEDIA <a href="terror.html" class="see-more">Ver Más</a></h3>
+                <div class="movie-grid">
+                    <div class="movie-card">
+                        <a href="terror1.html"><img src="https://m.media-amazon.com/images/S/pv-target-images/b27dabd2207d44ad4015e73fa654ad6ab3955790db8f17decc4bb4f943b2dd6f.jpg" alt="Terror 1"></a>
+                        <h2>Un Papa Genial</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="terror2.html"><img src="https://i.pinimg.com/originals/b5/65/d5/b565d540550a9aadbb4d441f8132f17c.jpg" alt="Terror 2"></a>
+                        <h2>Hombres G:</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="terror3.html"><img src="https://via.placeholder.com/200x300" alt="Terror 3"></a>
+                        <h2>Terror 3</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="terror4.html"><img src="https://via.placeholder.com/200x300" alt="Terror 4"></a>
+                        <h2>Terror 4</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="terror5.html"><img src="https://via.placeholder.com/200x300" alt="Terror 5"></a>
+                        <h2>Terror 5</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Acción <a href="accion.html" class="see-more">Ver Más</a></h3>
+                <div class="movie-grid">
+                    <div class="movie-card">
+                        <a href="accion1.html"><img src="https://via.placeholder.com/200x300" alt="Acción 1"></a>
+                        <h2>Acción 1</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="accion2.html"><img src="https://via.placeholder.com/200x300" alt="Acción 2"></a>
+                        <h2>Acción 2</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="accion3.html"><img src="https://via.placeholder.com/200x300" alt="Acción 3"></a>
+                        <h2>Acción 3</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="accion4.html"><img src="https://via.placeholder.com/200x300" alt="Acción 4"></a>
+                        <h2>Acción 4</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="accion5.html"><img src="https://via.placeholder.com/200x300" alt="Acción 5"></a>
+                        <h2>Acción 5</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Doramas <a href="doramas.html" class="see-more">Ver Más</a></h3>
+                <div class="movie-grid">
+                    <div class="movie-card">
+                        <a href="dorama1.html"><img src="https://via.placeholder.com/200x300" alt="Dorama 1"></a>
+                        <h2>Dorama 1</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="dorama2.html"><img src="https://via.placeholder.com/200x300" alt="Dorama 2"></a>
+                        <h2>Dorama 2</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="dorama3.html"><img src="https://via.placeholder.com/200x300" alt="Dorama 3"></a>
+                        <h2>Dorama 3</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="dorama4.html"><img src="https://via.placeholder.com/200x300" alt="Dorama 4"></a>
+                        <h2>Dorama 4</h2>
+                    </div>
+                    <div class="movie-card">
+                        <a href="dorama5.html"><img src="https://via.placeholder.com/200x300" alt="Dorama 5"></a>
+                        <h2>Dorama 5</h2>
+                        <p>Género: Drama</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <!-- El texto de copyright ha sido eliminado -->
+        </footer>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const totalItems = items.length;
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalItems;
+            updateCarousel();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            const inner = document.querySelector('.carousel-inner');
+            inner.style.transform = `translateX(-${currentIndex * 100}%)` ;
+        }
+    </script>
+</body>
+</html>

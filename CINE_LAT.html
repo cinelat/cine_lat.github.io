@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #141414;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .main-banner {
+            position: relative;
+            height: 400px;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQySf1JH_sAdIrFcQ-4JofcWQyf59SwvDLe5Q&usqp=CAU');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            color: #fff;
+        }
+        .overlay-image {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: auto;
+            z-index: 2;
+        }
+        .main-banner h2 {
+            font-size: 6vw;
+            margin: 0;
+        }
+        .description {
+            font-size: 3.5vw;
+            margin-top: 10px;
+            max-width: 600px;
+        }
+        .buttons {
+            margin-top: 10px;
+        }
+        .button {
+            background-color: #e50914;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 3.5vw;
+            text-decoration: none; /* Asegura que no haya subrayado */
+        }
+        .button.secondary {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: black;
+        }
+        .section {
+            padding: 20px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+            font-size: 5vw;
+            display: inline-block;
+        }
+        .section a {
+            float: right;
+            color: #e50914;
+            text-decoration: none;
+            font-size: 4vw;
+            margin-top: 22px;
+        }
+        .cards {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .card {
+            flex: 0 0 auto;
+            width: 30vw;
+            margin-right: 10px;
+            border: none;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            height: 200px; /* Asegura que todas las imágenes tengan la misma altura */
+            object-fit: cover; /* Asegura que las imágenes mantengan su aspecto dentro del contenedor */
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card p {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 3.5vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-banner">
+        <img class="overlay-image" src="https://i.ibb.co/2qYbZHB/images-5-5-removebg-preview.png" alt="SIN CONEXIÓN A INTERNET">
+        <h2>JOKER</h2>
+        <div class="description">
+            El fracaso comediante Arthur Fleck explora el amor de su vida, mientras enfrenta una ciudad llena de injusticias.
+        </div>
+        <div class="buttons">
+            <a href="https://cinelat.github.io/Dragon_ball_daima.html" class="button">REPRODUCIR</a>
+            <button class="button secondary">MI LISTA</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Animes</h2>
+        <a href="https://example.com/animes">Ver más</a>
+        <div class="cards">
+            <div class="card">
+                <a href="https://cinelat.github.io/Demon_slayer_t4.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiaMMShjSPkLin1AxF_8k_S1OjQJ1KzJcYK8HRoQnIiDqosltDqy7p4Avh&s=10" alt="ERROR"></a>
+                <p>Kimetsu no Yaiba T4 (2024)</p>
+            </div>
+            <div class="card">
+                <a href="https://cinelat.github.io/jujutsu_kaisen_T1.html"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8LblEy1y8T6fuu7quJ2rm5o4onKuXHdLL993mNkW5m6y30XeVHG13Bf4&s=10" alt="ERROR"></a>
+                <p>Jujutsu Kaisen T1 (2021)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/shingeki"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKYIIuHD-6AxoPC3LP0SydJQc9hsx_SVgqDa5k6qfR3MIDL4mM6bzaF5Pu&s=10" alt="ERROR"></a>
+                <p>Shingeki no Kyojin (2022)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/chainsaw"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGmcC5b7xv_pj9x3fe5jdbbI2RiH6MzAy_YQ&usqp=CAU" alt="ERROR"></a>
+                <p>Chainsaw Man T1 (2023)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/spy"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjyg0TnII6XgGKiDtD_waXu_6iU_ISz9yxJONAxw_BNlMDWpTS-huDJMIL&s=10" alt="ERROR"></a>
+                <p>Spy x Family T2 </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Terror</h2>
+        <a href="https://example.com/terror">Ver más</a>
+        <div class="cards">
+            <div class="card">
+                <a href="https://example.com/invisible"><img src="https://via.placeholder.com/150x200" alt="The Invisible Man"></a>
+                <p>El Hombre Invisible (2020)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/quiet"><img src="https://via.placeholder.com/150x200" alt="A Quiet Place Part II"></a>
+                <p>Un Lugar en Silencio Parte II (2021)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/candyman"><img src="https://via.placeholder.com/150x200" alt="Candyman"></a>
+                <p>Candyman (2022)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/nope"><img src="https://via.placeholder.com/150x200" alt="Nope"></a>
+                <p>¡Nop! (2023)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/conjuring"><img src="https://via.placeholder.com/150x200" alt="The Conjuring"></a>
+                <p>El Conjuro: El Diablo Me Obligó a Hacerlo (2024)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Acción</h2>
+        <a href="https://example.com/accion">Ver más</a>
+        <div class="cards">
+            <div class="card">
+                <a href="https://example.com/tenet"><img src="https://via.placeholder.com/150x200" alt="Tenet"></a>
+                <p>Tenet (2020)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/widow"><img src="https://via.placeholder.com/150x200" alt="Black Widow"></a>
+                <p>Viuda Negra (2021)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/batman"><img src="https://via.placeholder.com/150x200" alt="The Batman"></a>
+                <p>El Batman (2022)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/johnwick4"><img src="https://via.placeholder.com/150x200" alt="John Wick 4"></a>
+                <p>John Wick 4 (2023)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/mi7"><img src="https://via.placeholder.com/150x200" alt="Mission: Impossible 7"></a>
+                <p>Misión Imposible 7 (2024)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Doramas</h2>
+        <a href="https://example.com/doramas">Ver más</a>
+        <div class="cards">
+            <div class="card">
+                <a href="https://example.com/crashlanding"><img src="https://via.placeholder.com/150x200" alt="Crash Landing on You"></a>
+                <p>Aterrizaje de Emergencia en Tu Corazón (2020)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/vincenzo"><img src="https://via.placeholder.com/150x200" alt="Vincenzo"></a>
+                <p>Vincenzo (2021)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/squidgame"><img src="https://via.placeholder.com/150x200" alt="Squid Game"></a>
+                <p>El Juego del Calamar (2022)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/allofus"><img src="https://via.placeholder.com/150x200" alt="All of Us Are Dead"></a>
+                <p>Estamos Muertos (2023)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/thesilentsea"><img src="https://via.placeholder.com/150x200" alt="The Silent Sea"></a>
+                <p>El Mar Silencioso (2024)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Animados</h2>
+        <a href="https://example.com/animados">Ver más</a>
+        <div class="cards">
+            <div class="card">
+                <a href="https://example.com/soul"><img src="https://via.placeholder.com/150x200" alt="Soul"></a>
+                <p>Soul (2020)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/luca"><img src="https://via.placeholder.com/150x200" alt="Luca"></a>
+                <p>Luca (2021)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/red"><img src="https://via.placeholder.com/150x200" alt="Turning Red"></a>
+                <p>Red (2022)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/encanto"><img src="https://via.placeholder.com/150x200" alt="Encanto"></a>
+                <p>Encanto (2023)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/mitchells"><img src="https://via.placeholder.com/150x200" alt="The Mitchells vs. The Machines"></a>
+                <p>Los Mitchell contra las Máquinas (2024)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Series</h2>
+        <a href="https://example.com/series">Ver más</a>
+        <div class="cards">
+            <div class="card">
+                <a href="https://example.com/queensgambit"><img src="https://via.placeholder.com/150x200" alt="The Queen's Gambit"></a>
+                <p>Gambito de Dama (2020)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/loki"><img src="https://via.placeholder.com/150x200" alt="Loki"></a>
+                <p>Loki (2021)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/strangerthings4"><img src="https://via.placeholder.com/150x200" alt="Stranger Things 4"></a>
+                <p>Cosas Extrañas 4 (2022)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/witcher"><img src="https://via.placeholder.com/150x200" alt="The Witcher: Blood Origin"></a>
+                <p>The Witcher: El Origen de la Sangre (2023)</p>
+            </div>
+            <div class="card">
+                <a href="https://example.com/houseofthedragon"><img src="https://via.placeholder.com/150x200" alt="House of the Dragon"></a>
+                <p>La Casa del Dragón (2024)</p>
+            </div>
+        </div>
+    </div>
+</body>
+                  </html>

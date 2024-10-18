@@ -163,7 +163,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="video-container">
+        <div class="video-container" id="videoContainer">
             <iframe id="videoFrame" src="https://glbapps.com/embed/s-owzistqb8lqhm" frameborder="0" allowfullscreen></iframe>
         </div>
         
@@ -171,6 +171,7 @@
             <button onclick="showMessage('Función de subtítulos actualmente no disponible')">Subtítulos</button>
             <button onclick="showMessage('Doblaje en Español Latino actualmente solo un idioma')">Doblaje</button>
             <button onclick="toggleSeasonPanel()">Temporadas</button>
+            <button onclick="toggleFullscreen()">Pantalla Completa</button>
             <div class="view-counter">
                 <img src="https://img.icons8.com/material-outlined/24/ffffff/visible.png" alt="Vistas">
                 <span id="viewCount">0</span>
@@ -189,6 +190,10 @@
             <h2>Lista de Episodios</h2>
             <ul>
                 <li onclick="changeVideo('https://kingplayadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzhtZmJoZXFhcXYzMg==')">
+                    <img src="https://a.storyblok.com/f/178900/1064x1499/43269d83ec/dragon-ball-daima-key-visual.png/m/filters:quality(95)format(webp)" alt="Episodio 1">
+                    <div class="episode-title">Capítulo 1</div>
+                </li>
+                <li onclick="changeVideo('https://ww3.pelisplus.to/player/Y0RJM1EyNXNNbmc0TTJSWlMyMVpha1pQU2xORmQzVllWVkJUVXpGRllYWTRjMVJGVGpKVkszSXJla2c9')">
                     <img src="https://a.storyblok.com/f/178900/1064x1499/43269d83ec/dragon-ball-daima-key-visual.png/m/filters:quality(95)format(webp)" alt="Episodio 1">
                     <div class="episode-title">Capítulo 1</div>
                 </li>
@@ -242,6 +247,17 @@
             views += 1;
             localStorage.setItem('viewCount', views);
             return views;
+        }
+
+        function toggleFullscreen() {
+            const videoContainer = document.getElementById('videoContainer');
+            if (!document.fullscreenElement) {
+                videoContainer.requestFullscreen().catch(err => {
+                    console.log(`Error al intentar activar el modo de pantalla completa: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --background-color: #0d0d0d;
+            --text-color: #fff;
+            --secondary-text-color: #bbbbbb;
+            --accent-color: #e50914;
+            --episode-background: #222;
+            --modal-background: rgba(0, 0, 0, 0.9);
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .content {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .anime-info {
+            max-width: 150px;
+            flex-shrink: 0;
+        }
+        .anime-info img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .anime-details {
+            max-width: 500px;
+        }
+        .anime-details h2 {
+            margin: 0;
+            font-size: 1.5em;
+            color: var(--secondary-text-color);
+        }
+        .anime-meta {
+            font-size: 0.9em;
+            color: var(--secondary-text-color);
+            margin: 5px 0;
+        }
+        .anime-meta i {
+            margin-right: 5px;
+            color: var(--text-color);
+        }
+        .genres {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .genre {
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+        .synopsis {
+            font-size: 1em;
+            line-height: 1.5;
+            color: var(--secondary-text-color);
+            margin-top: 20px;
+        }
+        .synopsis strong {
+            color: #7b7b7b;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .episodes {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .episode {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: var(--episode-background);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .episode:hover {
+            transform: scale(1.02);
+        }
+        .episode-info {
+            display: flex;
+            align-items: center;
+        }
+        .episode img {
+            width: 100px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+        .episode-title {
+            font-size: 1em;
+            color: var(--text-color);
+        }
+        .season {
+            font-size: 0.9em;
+            color: #7b7b7b;
+            margin-bottom: 5px;
+        }
+        #videoModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 200px;
+            background-color: var(--modal-background);
+            z-index: 1000;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        #videoModal .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+        }
+        #videoModal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+        #closeModal {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #444;
+            color: var(--text-color);
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            z-index: 1002;
+        }
+    </style>
+</head>
+<body>
+
+<main class="content">
+    <div class="anime-info">
+        <img src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=480,height=720/catalog/crunchyroll/298acc932735d9a731ea39a3db6a613c.jpg" alt="Portada de Anime">
+    </div>
+    <div class="anime-details">
+        <h2>ROBOT SALVAJE</h2>
+        <p class="anime-meta">2024 • Finalizado • Película</p>
+        <div class="anime-meta">
+            <i class="fas fa-eye"></i>
+            <span id="viewsCount">0 vistas</span>
+        </div>
+        <div class="genres">
+            <div class="genre">ACCIÓN</div>
+            <div class="genre">COMEDIA</div>
+            <div class="genre">CREADOR: Peter Brown</div>
+        </div>
+    </div>
+</main>
+
+<section class="synopsis">
+    <strong>SINOPSIS:</strong>Serie de TV (2024). Goku, Vegeta, Bulma y el resto de personajes de Dragon Ball Super se convierten en niños, y Goten y Trunks vuelven a ser bebés. Parece que un deseo de Shenron provocó que se produjera el cambio, y dependerá de Goku y sus amigos luchar contra las nuevas amenazas que aparezcan.
+</section>
+
+<section class="episodes">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <h3>CAPITULOS</h3>
+    </div>
+    <div class="episode" data-episode="1">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 1">
+            <div>
+                <div class="season">CAPITULO 1</div>
+                <div class="episode-title">CONSPIRACION</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="2">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 2">
+            <div>
+                <div class="season">CAPITULO 2</div>
+                <div class="episode-title">GLORIA</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="3">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 3">
+            <div>
+                <div class="season">CAPITULO 3</div>
+                <div class="episode-title">SIEMPRE</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="4">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 4">
+            <div>
+                <div class="season">CAPITULO 4</div>
+                <div class="episode-title">N/A</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="videoModal">
+    <div class="logo">CINE LAT</div>
+    <button id="closeModal">Cerrar</button>
+    <iframe id="videoIframe" src="" allowfullscreen></iframe>
+</div>
+
+<script>
+document.querySelectorAll('.episode').forEach(episode => {
+    episode.addEventListener('click', function() {
+        const episodio = this.getAttribute('data-episode');
+        abrirVideo(episodio);
+        incrementarVistas(episodio);
+    });
+});
+
+document.getElementById('closeModal').addEventListener('click', cerrarVideo);
+
+function abrirVideo(episodio) {
+    const iframe = document.getElementById('videoIframe');
+    let videoUrl = "";
+
+    switch (parseInt(episodio)) {
+        case 1:
+            videoUrl = "https://ww3.pelisplus.to/player/Y0RJM1EyNXNNbmc0TTJSWlMyMVpha1pQU2xORmQzVllWVkJUVXpGRllYWTRjMVJGVGpKVkszSXJla2c9";
+            break;
+        case 2:
+            videoUrl = "https://ww3.pelisplus.to/player/Y0RJM1EyNXNNbmc0TTJSWlMyMVpha1pQU2xORmQzVllWVkJUVXpGRllYWTRjMVJGVGpKVkszSXJla2c9"; // Cambia esta URL por la adecuada
+            break;
+        case 3:
+            videoUrl = "https://www.example.com/video3"; // Cambia esta URL por la PELICULA
+            break;
+        case 4:
+            videoUrl = "https://www.example.com/video4"; // Cambia esta URL por la PELICULA
+            break;
+        default:
+            console.warn('Episodio no encontrado');
+            return;
+    }
+
+    iframe.src = videoUrl;
+    document.getElementById('videoModal').style.display = 'flex';
+}
+
+function cerrarVideo() {
+    const iframe = document.getElementById('videoIframe');
+    iframe.src = "";
+    document.getElementById('videoModal').style.display = 'none';
+}
+
+function incrementarVistas(episodio) {
+    const vistaKey = episodio-${episodio}-vistas;
+    let vistas = parseInt(localStorage.getItem(vistaKey)) || 0;
+
+    // Incrementa las vistas solo si es la primera vez que se abre el modal en esta sesión
+    if (!sessionStorage.getItem(vistaKey)) {
+        vistas += 1;
+        localStorage.setItem(vistaKey, vistas);
+        sessionStorage.setItem(vistaKey, true);
+        actualizarVistaCuenta();
+    }
+}
+
+function actualizarVistaCuenta() {
+    let totalVistas = 0;
+    for (let i = 1; i <= document.querySelectorAll('.episode').length; i++) {
+        let vistas = parseInt(localStorage.getItem(episodio-${i}-vistas)) || 0;
+        totalVistas += vistas;
+    }
+    document.getElementById('viewsCount').textContent = totalVistas + " vistas";
+}
+
+// Actualizar la cuenta de vistas al cargar la página
+actualizarVistaCuenta();
+</script>
+
+</body>
+</html>

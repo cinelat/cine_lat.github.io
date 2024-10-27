@@ -3,56 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Streaming</title>
+    <title>Cine Lat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
-            --background-color: #0d0d0d;
-            --text-color: #fff;
-            --secondary-text-color: #bbbbbb;
-            --accent-color: #e50914;
-            --episode-background: #222;
-            --modal-background: rgba(0, 0, 0, 0.9);
-        }
-
         body {
-            background-color: var(--background-color);
-            color: var(--text-color);
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU3kk6QU1MURXz4i48HFnWGrw4qRzf4kbNPsQcpb_z21cMiXkhCcL435jd&s=10');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
+            position: relative; 
+            overflow: hidden; 
         }
+
+        /* Overlay oscuro para el fondo */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .overlay {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); 
+            z-index: 1; 
+            display: none; 
+        }
+
         .content {
             display: flex;
             align-items: flex-start;
             gap: 20px;
+            position: relative; 
+            z-index: 2; 
         }
         .anime-info {
-            max-width: 150px;
+            max-width: 150px; 
             flex-shrink: 0;
         }
         .anime-info img {
-            width: 100%;
+            width: 100%; 
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
         .anime-details {
-            max-width: 500px;
+            max-width: 500px; 
         }
         .anime-details h2 {
             margin: 0;
             font-size: 1.5em;
-            color: var(--secondary-text-color);
         }
         .anime-meta {
             font-size: 0.9em;
-            color: var(--secondary-text-color);
             margin: 5px 0;
         }
         .anime-meta i {
             margin-right: 5px;
-            color: var(--text-color);
         }
         .genres {
             display: flex;
@@ -69,8 +86,12 @@
         .synopsis {
             font-size: 1em;
             line-height: 1.5;
-            color: var(--secondary-text-color);
             margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.6); 
+            z-index: 2; 
+            position: relative; 
         }
         .synopsis strong {
             color: #7b7b7b;
@@ -82,6 +103,12 @@
             margin-top: 20px;
             display: flex;
             flex-direction: column;
+            max-height: 500px; 
+            overflow-y: auto; 
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+            padding: 10px; 
+            border-radius: 8px; 
+            background-color: rgba(0, 0, 0, 0.7); 
         }
         .episode {
             display: flex;
@@ -89,11 +116,12 @@
             justify-content: space-between;
             margin-bottom: 15px;
             padding: 10px;
-            background-color: var(--episode-background);
+            background-color: rgba(255, 255, 255, 0.1); 
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s;
             cursor: pointer;
+            z-index: 2; 
         }
         .episode:hover {
             transform: scale(1.02);
@@ -103,14 +131,14 @@
             align-items: center;
         }
         .episode img {
-            width: 100px;
+            width: 100px; 
             height: auto;
             border-radius: 5px;
             margin-right: 20px;
         }
         .episode-title {
             font-size: 1em;
-            color: var(--text-color);
+            color: #fff; 
         }
         .season {
             font-size: 0.9em;
@@ -123,27 +151,28 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 320px;
-            height: 200px;
-            background-color: var(--modal-background);
+            width: 450px; 
+            height: 315px; 
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             overflow: hidden;
+            backdrop-filter: blur(5px); 
         }
         #videoModal .logo {
             position: absolute;
             top: 10px;
-            left: 10px;
+            left: 200px;
             font-size: 20px;
             font-weight: bold;
-            color: var(--accent-color);
+            color: #e50914;
             text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
             z-index: 1001;
         }
         #videoModal iframe {
-            width: 100%;
-            height: 100%;
+            width: 100%; 
+            height: 100%; 
             border: none;
             border-radius: 10px;
         }
@@ -152,7 +181,7 @@
             top: 5px;
             right: 5px;
             background-color: #444;
-            color: var(--text-color);
+            color: #fff;
             border: none;
             padding: 5px;
             border-radius: 5px;
@@ -160,20 +189,82 @@
             font-size: 0.8em;
             z-index: 1002;
         }
+        .alert {
+            background-color: rgba(255, 0, 0, 0.8); 
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: none; 
+        }
+        .season-button {
+            margin-left: 20px; 
+            cursor: pointer; 
+            background-color: red; 
+            color: white; 
+            border: none; 
+            padding: 10px 15px; 
+            border-radius: 5px; 
+            transition: background-color 0.3s;
+            z-index: 3; 
+        }
+        .season-button:hover {
+            background-color: darkred; 
+        }
+        /* Estilos para el menú de selección de temporada */
+        .season-menu {
+            display: none; /* Ocultar por defecto */
+            position: absolute;
+            background-color: #444; /* Fondo sólido */
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 3; 
+            margin-top: 10px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s; /* Animación de entrada */
+        }
+        .season-menu button {
+            background-color: #555; /* Fondo de botón */
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 5px; /* Espaciado entre botones */
+            transition: background-color 0.3s;
+        }
+        .season-menu button:hover {
+            background-color: rgba(255, 0, 0, 0.7); /* Color de botón al pasar el mouse */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
+
+<div class="background-overlay"></div> <!-- Overlay oscuro para el fondo -->
+<div class="overlay" id="modalOverlay"></div>
+
+<div class="alert" id="alertBox">Reproduciendo Episodio</div>
 
 <main class="content">
     <div class="anime-info">
         <img src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=480,height=720/catalog/crunchyroll/298acc932735d9a731ea39a3db6a613c.jpg" alt="Portada de Anime">
     </div>
     <div class="anime-details">
-        <h2>ROBOT SALVAJE</h2>
-        <p class="anime-meta">2024 • Finalizado • Película</p>
+        <h2>DRAGON BALL: DAIMA</h2>
+        <p class="anime-meta">2024 • EN EMISIÓN • ANIME</p>
         <div class="anime-meta">
             <i class="fas fa-eye"></i>
-            <span id="viewsCount">0 vistas</span>
+            <span id="viewsCount">175.6438.65 vistas</span>
         </div>
         <div class="genres">
             <div class="genre">ACCIÓN</div>
@@ -190,7 +281,14 @@
 <section class="episodes">
     <div style="display: flex; align-items: center; justify-content: space-between;">
         <h3>CAPITULOS</h3>
+        <button class="season-button" onclick="toggleSeasonMenu()">TEMPORADAS</button>
     </div>
+    <div class="season-menu" id="seasonMenu">
+        <button onclick="selectSeason(1)">TEMPORADA 1</button>
+        <button onclick="selectSeason(2)">TEMPORADA 2</button>
+        <button onclick="selectSeason(3)">TEMPORADA 3</button>
+    </div>
+    <!-- Mostrar los primeros 10 capítulos -->
     <div class="episode" data-episode="1">
         <div class="episode-info">
             <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 1">
@@ -223,7 +321,61 @@
             <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 4">
             <div>
                 <div class="season">CAPITULO 4</div>
-                <div class="episode-title">N/A</div>
+                <div class="episode-title">NUEVO RUMBO</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="5">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 5">
+            <div>
+                <div class="season">CAPITULO 5</div>
+                <div class="episode-title">LA BATALLA FINAL</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="6">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 6">
+            <div>
+                <div class="season">CAPITULO 6</div>
+                <div class="episode-title">LA NUEVA AMENAZA</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="7">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 7">
+            <div>
+                <div class="season">CAPITULO 7</div>
+                <div class="episode-title">LA VENGANZA</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="8">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 8">
+            <div>
+                <div class="season">CAPITULO 8</div>
+                <div class="episode-title">EL RETO</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="9">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 9">
+            <div>
+                <div class="season">CAPITULO 9</div>
+                <div class="episode-title">LA UNIÓN</div>
+            </div>
+        </div>
+    </div>
+    <div class="episode" data-episode="10">
+        <div class="episode-info">
+            <img src="https://en.dragon-ball-official.com/dragonball/en/news/2023/10/13/n231013000-1en.jpg" alt="Thumbnail del episodio 10">
+            <div>
+                <div class="season">CAPITULO 10</div>
+                <div class="episode-title">EL FINAL</div>
             </div>
         </div>
     </div>
@@ -236,11 +388,10 @@
 </div>
 
 <script>
-document.querySelectorAll('.episode').forEach(episode => {
+document.querySelectorAll('.episode').forEach((episode, index) => {
     episode.addEventListener('click', function() {
-        const episodio = this.getAttribute('data-episode');
-        abrirVideo(episodio);
-        incrementarVistas(episodio);
+        abrirVideo(index + 1); 
+        incrementarVistas(index + 1); 
     });
 });
 
@@ -250,25 +401,45 @@ function abrirVideo(episodio) {
     const iframe = document.getElementById('videoIframe');
     let videoUrl = "";
 
-    switch (parseInt(episodio)) {
+    switch (episodio) {
         case 1:
-            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvdzI0N2p5dXV6MHA1";
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvdzI0N2p5dXV6MHA1"; // Enlace 1
             break;
         case 2:
-            videoUrl = "https://ww3.pelisplus.to/player/Y0RJM1EyNXNNbmc0TTJSWlMyMVpha1pQU2xORmQzVllWVkJUVXpGRllYWTRjMVJGVGpKVkszSXJla2c9"; // Cambia esta URL por la adecuada
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvZ2ViaXdtc29yZWxl"; // Enlace 2
             break;
         case 3:
-            videoUrl = "https://www.example.com/video3"; // Cambia esta URL por la PELICULA
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvMjBuMHE3YjRlbjhk"; // Enlace 3
             break;
         case 4:
-            videoUrl = "https://www.example.com/video4"; // Cambia esta URL por la PELICULA
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvNDBnZ2F5b3h1"; // Enlace 4
+            break;
+        case 5:
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvMjZtY3UxZ3A3"; // Enlace 5
+            break;
+        case 6:
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvY2xvY2tzdGVw"; // Enlace 6
+            break;
+        case 7:
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvY29tYmln"; // Enlace 7
+            break;
+        case 8:
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvZGl0YWx1"; // Enlace 8
+            break;
+        case 9:
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvd29ybGQ"; // Enlace 9
+            break;
+        case 10:
+            videoUrl = "https://animetopiaatstudioadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlcGx1cy5jb20vZW1iZWQvYmF0dGU"; // Enlace 10
             break;
         default:
             console.warn('Episodio no encontrado');
             return;
     }
 
-    iframe.src = videoUrl;
+    iframe.src = videoUrl; // Cargar la URL en el iframe
+    document.getElementById('modalOverlay').style.display = 'block'; // Mostrar la superposición
+    mostrarAlerta(`Reproduciendo Episodio ${episodio}`); 
     document.getElementById('videoModal').style.display = 'flex';
 }
 
@@ -276,13 +447,13 @@ function cerrarVideo() {
     const iframe = document.getElementById('videoIframe');
     iframe.src = "";
     document.getElementById('videoModal').style.display = 'none';
+    document.getElementById('modalOverlay').style.display = 'none'; // Ocultar la superposición
 }
 
 function incrementarVistas(episodio) {
-    const vistaKey = episodio-${episodio}-vistas;
+    const vistaKey = `episodio-${episodio}-vistas`;
     let vistas = parseInt(localStorage.getItem(vistaKey)) || 0;
 
-    // Incrementa las vistas solo si es la primera vez que se abre el modal en esta sesión
     if (!sessionStorage.getItem(vistaKey)) {
         vistas += 1;
         localStorage.setItem(vistaKey, vistas);
@@ -294,15 +465,58 @@ function incrementarVistas(episodio) {
 function actualizarVistaCuenta() {
     let totalVistas = 0;
     for (let i = 1; i <= document.querySelectorAll('.episode').length; i++) {
-        let vistas = parseInt(localStorage.getItem(episodio-${i}-vistas)) || 0;
+        let vistas = parseInt(localStorage.getItem(`episodio-${i}-vistas`)) || 0;
         totalVistas += vistas;
     }
     document.getElementById('viewsCount').textContent = totalVistas + " vistas";
 }
 
-// Actualizar la cuenta de vistas al cargar la página
+function mostrarAlerta(mensaje) {
+    const alertBox = document.getElementById('alertBox');
+    alertBox.textContent = mensaje;
+    alertBox.style.display = 'block'; 
+
+    setTimeout(() => {
+        alertBox.style.display = 'none'; 
+    }, 3000);
+}
+
+function toggleSeasonMenu() {
+    const seasonMenu = document.getElementById('seasonMenu');
+    if (seasonMenu.style.display === 'none' || seasonMenu.style.display === '') {
+        seasonMenu.style.display = 'block';
+    } else {
+        seasonMenu.style.display = 'none';
+    }
+}
+
+function selectSeason(season) {
+    switch(season) {
+        case 1:
+            window.location.href = "temporada1.html"; // Cambia esta URL a la página de la temporada 1
+            break;
+        case 2:
+            window.location.href = "temporada2.html"; // Cambia esta URL a la página de la temporada 2
+            break;
+        case 3:
+            window.location.href = "temporada3.html"; // Cambia esta URL a la página de la temporada 3
+            break;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('seasonMenu').style.display = 'none'; // Asegúrate de que el menú esté oculto al cargar
+});
+
 actualizarVistaCuenta();
 </script>
+
+<!-- Menú de selección de temporadas -->
+<div class="season-menu" id="seasonMenu">
+    <button onclick="selectSeason(1)">TEMPORADA 1</button>
+    <button onclick="selectSeason(2)">TEMPORADA 2</button>
+    <button onclick="selectSeason(3)">TEMPORADA 3</button>
+</div>
 
 </body>
 </html>

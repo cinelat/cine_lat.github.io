@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cine Lat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-image: url('https://a.storyblok.com/f/178900/960x540/47681acebc/bluelockepisodenagi_16x9_3840x2160.png');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .overlay {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); 
+            z-index: 1; 
+            display: none; 
+        }
+
+        .content {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            position: relative; 
+            z-index: 2; 
+        }
+
+        .anime-info {
+            max-width: 150px; 
+            flex-shrink: 0;
+        }
+
+        .anime-info img {
+            width: 100%; 
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .anime-details {
+            max-width: 500px; 
+        }
+
+        .anime-details h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .anime-meta {
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+
+        .anime-meta i {
+            margin-right: 5px;
+        }
+
+        .genres {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .genre {
+            background-color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+
+        .play-button {
+            width: 100px; 
+            height: 100px; 
+            background-color: #e50914; 
+            border-radius: 50%; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            cursor: pointer; 
+            position: relative; 
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent; 
+            border-right: 15px solid transparent; 
+            border-bottom: 25px solid white; 
+            position: absolute; 
+        }
+
+        .synopsis {
+            font-size: 1em;
+            line-height: 1.5;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.6); 
+            z-index: 2; 
+            position: relative; 
+        }
+
+        .episodes {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            max-height: 500px; 
+            overflow-y: auto; 
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+            padding: 10px; 
+            border-radius: 8px; 
+            background-color: rgba(0, 0, 0, 0.7); 
+        }
+
+        .episode {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1); 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+            cursor: pointer;
+            z-index: 2; 
+        }
+
+        .episode:hover {
+            transform: scale(1.02);
+        }
+
+        .episode-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .episode img {
+            width: 100px; 
+            height: auto;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        .episode-title {
+            font-size: 1em;
+            color: #fff; 
+        }
+
+        .season {
+            font-size: 0.9em;
+            color: #7b7b7b;
+            margin-bottom: 5px;
+        }
+
+        #videoModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 450px; 
+            height: 315px; 
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        #videoModal .logo {
+            position: absolute;
+            top: 10px;
+            left: 200px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #e50914;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+        }
+
+        #videoModal iframe {
+            width: 100%; 
+            height: 100%; 
+            border: none;
+            border-radius: 10px;
+        }
+
+        #closeModal {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            z-index: 1002;
+        }
+
+        .alert {
+            background-color: rgba(255, 0, 0, 0.8); 
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: none; 
+        }
+
+        .season-button {
+            margin-left: 20px; 
+            cursor: pointer; 
+            background-color: red; 
+            color: white; 
+            border: none; 
+            padding: 10px 15px; 
+            border-radius: 5px; 
+            transition: background-color 0.3s;
+            z-index: 3; 
+        }
+
+        .season-button:hover {
+            background-color: darkred; 
+        }
+
+        .season-menu {
+            display: none; 
+            position: absolute;
+            background-color: #444; 
+            border-radius: 5px;
+            padding: 10px;
+            z-index: 3; 
+            margin-top: 10px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s; 
+        }
+
+        .season-menu button {
+            background-color: #555; 
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 5px; 
+            transition: background-color 0.3s;
+        }
+
+        .season-menu button:hover {
+            background-color: rgba(255, 0, 0, 0.7); 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="background-overlay"></div> 
+<div class="overlay" id="modalOverlay"></div>
+
+<div class="alert" id="alertBox">Reproduciendo Episodio</div>
+
+<main class="content">
+    <div class="anime-info">
+        <img src="https://i.ibb.co/RjpK64H/blue-lock-pelicula-portada.png" alt="Portada de Anime">
+    </div>
+    <div class="anime-details">
+        <h2>DRAGON BALL: DAIMA</h2>
+        <p class="anime-meta">2024 • EN EMISIÓN • ANIME</p>
+        <div class="anime-meta">
+            <i class="fas fa-eye"></i>
+            <span id="viewsCount">135.5k vistas</span>
+        </div>
+        <div class="genres">
+            <div class="genre">ACCIÓN</div>
+            <div class="genre">COMEDIA</div>
+            <div class="genre">CREADOR: Akira Toriyama</div>
+        </div>
+        <div class="play-button" onclick="abrirVideo(4)"> <!-- Cambia el número según el episodio -->
+            <div class="triangle"></div>
+        </div>
+    </div>
+</main>
+
+<section class="synopsis">
+    <strong>SINOPSIS:</strong> Serie de TV (2024). Goku, Vegeta, Bulma y el resto de personajes de Dragon Ball Super se convierten en niños, y Goten y Trunks vuelven a ser bebés. Parece que un deseo de Shenron provocó que se produjera el cambio, y dependerá de Goku y sus amigos luchar contra las nuevas amenazas que aparezcan. 
+</section>
+
+<section class="episodes">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <h3>CAPÍTULOS</h3>
+        <button class="season-button" onclick="toggleSeasonMenu()">TEMPORADAS</button>
+    </div>
+    <div class="season-menu" id="seasonMenu">
+        <button onclick="selectSeason(1)"https://cinelat.github.io/daima.html">TEMPORADA 1</button>
+    </div>
+    <div class="episode" data-episode="1">
+        <div class="episode-info">
+            <img src="https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2024/07/blue-lock-pelicula-episodio-nagi-3656322.jpg" alt="Thumbnail del episodio 1">
+            <div>
+                <div class="season">CAPÍTULO 1</div>
+                <div class="episode-title">CONSPIRACIÓN</div>
+            </div>
+        </div>
+    </div>
+    <!-- Agrega más episodios según sea necesario -->
+</section>
+
+<div id="videoModal">
+    <div class="logo">CINE LAT</div>
+    <button id="closeModal">Cerrar</button>
+    <iframe id="videoIframe" src="" allowfullscreen></iframe>
+</div>
+
+<script>
+document.querySelectorAll('.episode').forEach((episode, index) => {
+    episode.addEventListener('click', function() {
+        abrirVideo(index + 1); 
+    });
+});
+
+document.getElementById('closeModal').addEventListener('click', cerrarVideo);
+
+function abrirVideo(episodio) {
+    const iframe = document.getElementById('videoIframe');
+    let videoUrl = "";
+
+    switch (episodio) {
+        case 1:
+            videoUrl = "https://kingplayadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlaHViLmNvbS9lbWJlZC9zam9oaHZ3ejBva3Y="; 
+            break;
+        default:
+            console.warn('Episodio no encontrado');
+            return;
+    }
+
+    iframe.src = videoUrl; 
+    document.getElementById('modalOverlay').style.display = 'block'; 
+    mostrarAlerta(`Reproduciendo Episodio ${episodio}`); 
+    document.getElementById('videoModal').style.display = 'flex';
+}
+
+function cerrarVideo() {
+    const iframe = document.getElementById('videoIframe');
+    iframe.src = "";
+    document.getElementById('videoModal').style.display = 'none';
+    document.getElementById('modalOverlay').style.display = 'none'; 
+}
+
+function mostrarAlerta(mensaje) {
+    const alertBox = document.getElementById('alertBox');
+    alertBox.textContent = mensaje;
+    alertBox.style.display = 'block'; 
+
+    setTimeout(() => {
+        alertBox.style.display = 'none'; 
+    }, 3000);
+}
+
+function toggleSeasonMenu() {
+    const seasonMenu = document.getElementById('seasonMenu');
+    seasonMenu.style.display = (seasonMenu.style.display === 'none' || seasonMenu.style.display === '') ? 'block' : 'none';
+}
+
+function selectSeason(season) {
+    switch(season) {
+        case 1:
+            window.location.href = "https://cinelat.github.io/daima.html"; 
+            break;
+        case 2:
+            window.location.href = "temporada2.html"; 
+            break;
+        case 3:
+            window.location.href = "temporada3.html"; 
+            break;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('seasonMenu').style.display = 'none'; 
+});
+</script>
+
+</body>
+</html>

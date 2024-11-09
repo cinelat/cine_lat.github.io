@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KING PLAY</title>
+    <style>
+        /* Estilos generales */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff0000, #ff0000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Caja del generador */
+        .wish-box {
+            width: 350px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #ffff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 95%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #007bff;
+            margin-bottom: 15px;
+            background-color: #fff;
+            font-size: 14px;
+        }
+
+        .generate-button, .copy-button {
+            background-color: #FF0000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            width: 80%;
+        }
+
+        .generate-button:hover, .copy-button:hover {
+            background-color: #CC0000;
+        }
+
+        #generated-url-container {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            color: #ffffff;
+        }
+
+        #generated-url {
+            word-break: break-all;
+            background-color: #1f1f1f;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-size: 13px;
+            color: #fff;
+        }
+
+        #iframe-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        .copy-button {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wish-box">
+        <h2>GENERADOR KING PLAY ADB</h2>
+        <form id="url-generator">
+            <label for="key">URL DE StreamWish O VIDHIDE</label>
+            <input type="text" id="key" name="key" placeholder="Introduce la URL" required>
+            <button type="button" class="generate-button" onclick="generateURL()">Generar URL</button>
+        </form>
+        
+        <div id="generated-url-container">
+            <p>URL Generada:</p>
+            <div id="generated-url"></div>
+        </div>
+        
+        <div id="iframe-container">
+            <iframe id="generated-iframe"></iframe>
+        </div>
+        
+        <button class="copy-button" id="copy-url-button">Copiar URL</button>
+    </div>
+
+    <script src="//ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+    <script>
+        jwplayer.key = 'XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo';
+
+        function generateURL() {
+            var key = document.getElementById("key").value;
+            var encodedKey = btoa(key);
+            var generatedURL = `https://kingplayadb.blogspot.com/?m=1.html?r=${encodedKey}`;
+
+            // Mostrar la URL generada y el iframe
+            document.getElementById("generated-url-container").style.display = "block";
+            document.getElementById("iframe-container").style.display = "block";
+            document.getElementById("copy-url-button").style.display = "inline-block";
+
+            // Establecer la URL en el iframe y en el div
+            document.getElementById("generated-url").innerText = generatedURL;
+            document.getElementById("generated-iframe").src = generatedURL;
+
+            // Funcionalidad del botón de copiar
+            document.getElementById("copy-url-button").addEventListener("click", function() {
+                var urlToCopy = document.getElementById("generated-url").textContent;
+                var textArea = document.createElement("textarea");
+                textArea.value = urlToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
+                alert("URL copiada al portapapeles");
+            });
+        }
+    </script>
+</body>
+</html>

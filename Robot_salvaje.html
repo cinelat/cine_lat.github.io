@@ -7,18 +7,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background-image: url('https://televitos.com/wp-content/uploads/2024/09/RobotSalvaje_01-1.webp');
+            background-image: url('https://i.ytimg.com/vi/UPgUIORqja4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDmAz0BV6peCE1CCkdfu--tgQNx1Q');
             background-size: cover;
             background-position: center;
             color: #fff;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
-            position: relative; 
-            overflow: hidden; 
+            position: relative;
         }
 
-        /* Overlay oscuro para el fondo */
         .background-overlay {
             position: fixed;
             top: 0;
@@ -47,42 +45,74 @@
             position: relative; 
             z-index: 2; 
         }
+
         .anime-info {
             max-width: 150px; 
             flex-shrink: 0;
         }
+
         .anime-info img {
             width: 100%; 
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
+
         .anime-details {
             max-width: 500px; 
         }
+
         .anime-details h2 {
             margin: 0;
             font-size: 1.5em;
         }
+
         .anime-meta {
             font-size: 0.9em;
             margin: 5px 0;
         }
+
         .anime-meta i {
             margin-right: 5px;
         }
+
         .genres {
             display: flex;
             gap: 10px;
             margin-top: 5px;
             margin-bottom: 10px;
         }
+
         .genre {
             background-color: #333;
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 0.8em;
         }
+
+        .play-button {
+            width: 100px; 
+            height: 100px; 
+            background-color: #e50914; 
+            border-radius: 50%; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            cursor: pointer; 
+            position: relative; 
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent; 
+            border-right: 15px solid transparent; 
+            border-bottom: 25px solid white; 
+            position: absolute; 
+        }
+
         .synopsis {
             font-size: 1em;
             line-height: 1.5;
@@ -93,12 +123,7 @@
             z-index: 2; 
             position: relative; 
         }
-        .synopsis strong {
-            color: #7b7b7b;
-            font-size: 1.1em;
-            display: block;
-            margin-bottom: 5px;
-        }
+
         .episodes {
             margin-top: 20px;
             display: flex;
@@ -110,6 +135,7 @@
             border-radius: 8px; 
             background-color: rgba(0, 0, 0, 0.7); 
         }
+
         .episode {
             display: flex;
             align-items: center;
@@ -123,28 +149,34 @@
             cursor: pointer;
             z-index: 2; 
         }
+
         .episode:hover {
             transform: scale(1.02);
         }
+
         .episode-info {
             display: flex;
             align-items: center;
         }
+
         .episode img {
             width: 100px; 
             height: auto;
             border-radius: 5px;
             margin-right: 20px;
         }
+
         .episode-title {
             font-size: 1em;
             color: #fff; 
         }
+
         .season {
             font-size: 0.9em;
             color: #7b7b7b;
             margin-bottom: 5px;
         }
+
         #videoModal {
             display: none;
             position: fixed;
@@ -158,8 +190,8 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             overflow: hidden;
-            backdrop-filter: blur(5px); 
         }
+
         #videoModal .logo {
             position: absolute;
             top: 10px;
@@ -170,12 +202,14 @@
             text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7);
             z-index: 1001;
         }
+
         #videoModal iframe {
             width: 100%; 
             height: 100%; 
             border: none;
             border-radius: 10px;
         }
+
         #closeModal {
             position: absolute;
             top: 5px;
@@ -189,6 +223,7 @@
             font-size: 0.8em;
             z-index: 1002;
         }
+
         .alert {
             background-color: rgba(255, 0, 0, 0.8); 
             color: white;
@@ -201,6 +236,7 @@
             z-index: 2000;
             display: none; 
         }
+
         .season-button {
             margin-left: 20px; 
             cursor: pointer; 
@@ -212,23 +248,25 @@
             transition: background-color 0.3s;
             z-index: 3; 
         }
+
         .season-button:hover {
             background-color: darkred; 
         }
-        /* Estilos para el menú de selección de temporada */
+
         .season-menu {
-            display: none; /* Ocultar por defecto */
+            display: none; 
             position: absolute;
-            background-color: #444; /* Fondo sólido */
+            background-color: #444; 
             border-radius: 5px;
             padding: 10px;
             z-index: 3; 
             margin-top: 10px; 
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.3s; /* Animación de entrada */
+            animation: fadeIn 0.3s; 
         }
+
         .season-menu button {
-            background-color: #555; /* Fondo de botón */
+            background-color: #555; 
             color: white;
             border: none;
             padding: 10px;
@@ -236,12 +274,14 @@
             width: 100%;
             text-align: center;
             border-radius: 5px;
-            margin-bottom: 5px; /* Espaciado entre botones */
+            margin-bottom: 5px; 
             transition: background-color 0.3s;
         }
+
         .season-menu button:hover {
-            background-color: rgba(255, 0, 0, 0.7); /* Color de botón al pasar el mouse */
+            background-color: rgba(255, 0, 0, 0.7); 
         }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -250,52 +290,54 @@
 </head>
 <body>
 
-<div class="background-overlay"></div> <!-- Overlay oscuro para el fondo -->
+<div class="background-overlay"></div> 
 <div class="overlay" id="modalOverlay"></div>
 
 <div class="alert" id="alertBox">Reproduciendo Episodio</div>
 
 <main class="content">
     <div class="anime-info">
-        <img src="https://www.universalpictures-latam.com/tl_files/content/movies/wild_robot/posters/01.jpg" alt="Portada de Anime">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGeWV0evaowa8ic2ginA58syA7Z-STHU22OjP5xpIpNrR0up8oerYx0SQ&s=10" alt="Portada de Anime">
     </div>
     <div class="anime-details">
         <h2>ROBOT SALVAJE</h2>
-        <p class="anime-meta">2024 • EN EMISIÓN • ANIMADO</p>
+        <p class="anime-meta">2024 • FINALIZADO • ANIMADO</p>
         <div class="anime-meta">
             <i class="fas fa-eye"></i>
-            <span id="viewsCount">175.6438.65 vistas</span>
+            <span id="viewsCount">74.5k vistas</span>
         </div>
         <div class="genres">
             <div class="genre">ACCIÓN</div>
             <div class="genre">COMEDIA</div>
-            <div class="genre">CREADOR: </div>
+            <div class="genre">CREADOR: ...</div>
+        </div>
+        <div class="play-button" onclick="abrirVideo(1)"> <!-- Cambia el número según el episodio -->
+            <div class="triangle"></div>
         </div>
     </div>
 </main>
 
 <section class="synopsis">
-    <strong>SINOPSIS:</strong>El épico viaje de un robot -la unidad 7134 de Roz,'Roz' para abreviar- que naufraga en una isla deshabitada y debe aprender a adaptarse al duro entorno, entablando gradualmente relaciones con los animales de la isla y convirtiéndose en padre adoptivo de un pequeño ganso huérfano.
-</section>
-
+      <strong>SINOPSIS:</strong> El épico viaje de un robot -la unidad 7134 de Roz,'Roz' para abreviar- que naufraga en una isla deshabitada y debe aprender a adaptarse al duro entorno, entablando gradualmente relaciones con los animales de la isla y convirtiéndose en padre adoptivo de un pequeño ganso huérfano
+    </section>
 <section class="episodes">
     <div style="display: flex; align-items: center; justify-content: space-between;">
-        <h3>PELICULA</h3>
+        <h3>CAPÍTULOS</h3>
         <button class="season-button" onclick="toggleSeasonMenu()">TEMPORADAS</button>
     </div>
     <div class="season-menu" id="seasonMenu">
-        <button onclick="selectSeason(1)">TEMPORADA 1</button>
+        <button onclick="selectSeason(1)"https://cinelat.github.io/daima.html">TEMPORADA 1</button>
     </div>
-    <!-- Mostrar los primeros 10 capítulos -->
     <div class="episode" data-episode="1">
         <div class="episode-info">
-            <img src="https://i.ytimg.com/vi/SPMChTR4Pj4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCLXsraGWyvKZlwYCtcQ1ztzja63g" alt="Thumbnail del episodio 1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRldRJCqZ9a_ZXN8e00TxABtdx5_65tmZ0DF4b1AH4N-TN_3YWTL_rjmswZ&s=10" alt="Thumbnail del episodio 1">
             <div>
-                <div class="season">PELICULA 1</div>
-                <div class="episode-title">CONSPIRACION</div>
+                <div class="season">PELICUZLA</div>
+                <div class="episode-title">CONSPIRACIÓN</div>
             </div>
         </div>
     </div>
+    <!-- Agrega más episodios según sea necesario -->
 </section>
 
 <div id="videoModal">
@@ -308,7 +350,6 @@
 document.querySelectorAll('.episode').forEach((episode, index) => {
     episode.addEventListener('click', function() {
         abrirVideo(index + 1); 
-        incrementarVistas(index + 1); 
     });
 });
 
@@ -320,15 +361,15 @@ function abrirVideo(episodio) {
 
     switch (episodio) {
         case 1:
-            videoUrl = "https://ww3.pelisplus.to/player/Y0RJM1EyNXNNbmc0TTJSWlMyMVpha1pQU2xORmQzVllWVkJUVXpGRllYWTRjMVJGVGpKVkszSXJla2c9"; // Enlace 1
+            videoUrl = "https://kingplayadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly92aWRoaWRlaHViLmNvbS9lbWJlZC91YnZtNncwcjdnOGU="; 
             break;
         default:
             console.warn('Episodio no encontrado');
             return;
     }
 
-    iframe.src = videoUrl; // Cargar la URL en el iframe
-    document.getElementById('modalOverlay').style.display = 'block'; // Mostrar la superposición
+    iframe.src = videoUrl; 
+    document.getElementById('modalOverlay').style.display = 'block'; 
     mostrarAlerta(`Reproduciendo Episodio ${episodio}`); 
     document.getElementById('videoModal').style.display = 'flex';
 }
@@ -337,28 +378,7 @@ function cerrarVideo() {
     const iframe = document.getElementById('videoIframe');
     iframe.src = "";
     document.getElementById('videoModal').style.display = 'none';
-    document.getElementById('modalOverlay').style.display = 'none'; // Ocultar la superposición
-}
-
-function incrementarVistas(episodio) {
-    const vistaKey = `episodio-${episodio}-vistas`;
-    let vistas = parseInt(localStorage.getItem(vistaKey)) || 0;
-
-    if (!sessionStorage.getItem(vistaKey)) {
-        vistas += 1;
-        localStorage.setItem(vistaKey, vistas);
-        sessionStorage.setItem(vistaKey, true);
-        actualizarVistaCuenta();
-    }
-}
-
-function actualizarVistaCuenta() {
-    let totalVistas = 0;
-    for (let i = 1; i <= document.querySelectorAll('.episode').length; i++) {
-        let vistas = parseInt(localStorage.getItem(`episodio-${i}-vistas`)) || 0;
-        totalVistas += vistas;
-    }
-    document.getElementById('viewsCount').textContent = totalVistas + " vistas";
+    document.getElementById('modalOverlay').style.display = 'none'; 
 }
 
 function mostrarAlerta(mensaje) {
@@ -373,40 +393,27 @@ function mostrarAlerta(mensaje) {
 
 function toggleSeasonMenu() {
     const seasonMenu = document.getElementById('seasonMenu');
-    if (seasonMenu.style.display === 'none' || seasonMenu.style.display === '') {
-        seasonMenu.style.display = 'block';
-    } else {
-        seasonMenu.style.display = 'none';
-    }
+    seasonMenu.style.display = (seasonMenu.style.display === 'none' || seasonMenu.style.display === '') ? 'block' : 'none';
 }
 
 function selectSeason(season) {
     switch(season) {
         case 1:
-            window.location.href = "temporada1.html"; // Cambia esta URL a la página de la temporada 1
+            window.location.href = "https://cinelat.github.io/daima.html"; 
             break;
         case 2:
-            window.location.href = "temporada2.html"; // Cambia esta URL a la página de la temporada 2
+            window.location.href = "temporada2.html"; 
             break;
         case 3:
-            window.location.href = "temporada3.html"; // Cambia esta URL a la página de la temporada 3
+            window.location.href = "temporada3.html"; 
             break;
     }
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('seasonMenu').style.display = 'none'; // Asegúrate de que el menú esté oculto al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('seasonMenu').style.display = 'none'; 
 });
-
-actualizarVistaCuenta();
 </script>
-
-<!-- Menú de selección de temporadas -->
-<div class="season-menu" id="seasonMenu">
-    <button onclick="selectSeason(1)">TEMPORADA 1</button>
-    <button onclick="selectSeason(2)">TEMPORADA 2</button>
-    <button onclick="selectSeason(3)">TEMPORADA 3</button>
-</div>
 
 </body>
 </html>

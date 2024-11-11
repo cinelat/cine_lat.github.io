@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Video Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body, html {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        .video-container {
+            position: relative;
+            max-width: 900px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        video {
+            max-width: 100%;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://i.ibb.co/f8xY8Qq/Logo-Computaci-n-tecnol-gico-moderno-20241109-064253-0000-removebg-preview-1.png');
+            background-size: cover;
+            border-radius: 50%;
+        }
+        .controls, .progress, .bottom-controls {
+            transition: opacity 0.3s;
+            opacity: 1;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .button {
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            margin: 0 20px;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.2);
+        }
+        .progress {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: #444;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .progress-filled {
+            height: 100%;
+            background: #ff0000;
+            width: 0;
+            position: relative;
+        }
+        .progress-filled::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            background-image: url('https://i.ibb.co/7VPW0Bg/6234973-removebg-preview.png');
+            background-size: cover;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .bottom-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+        }
+        .time {
+            color: #fff;
+            font-size: 14px;
+        }
+        .extra-logo {
+            width: 60px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .fullscreen-button {
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+        }
+        .volume-control {
+            display: flex;
+            align-items: center;
+        }
+        .volume-slider {
+            width: 100px;
+            margin-left: 5px;
+        }
+        .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            margin: -25px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .settings-panel {
+            position: absolute;
+            bottom: 60px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+        }
+        .settings-panel select {
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="video-container" id="videoContainer">
+    <div class="logo"></div>
+    <video id="video" src="https://seed128.bitchute.com/cun9dJt2w7dY/1hD1RtzzPCMy.mp4" preload="auto" autoplay></video>
+    <div class="spinner" id="spinner"></div>
+    <div class="progress" id="progress">
+        <div class="progress-filled"></div>
+    </div>
+    <div class="controls" id="controls">
+        <button class="button" id="backward"><i class="fas fa-backward"></i></button>
+        <button class="button" id="playPause"><i class="fas fa-play"></i></button>
+        <button class="button" id="forward"><i class="fas fa-forward"></i></button>
+    </div>
+    <div class="bottom-controls" id="bottomControls">
+        <div class="time" id="time">0:00 / 0:00</div>
+        <div class="volume-control">
+            <button class="button" id="settings"><i class="fas fa-cog"></i></button>
+            <button class="button" id="muteButton"><i class="fas fa-volume-up"></i></button>
+            <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.1" value="1">
+        </div>
+        <div style="display: flex; align-items: center;">
+            <img src="https://i.ibb.co/zR3Z17Q/Grey-minimalist-business-project-presentation-20241109-131507-0000-removebg-preview.png" alt="Logo" class="extra-logo" />
+            <button class="fullscreen-button" id="fullscreenButton"><i class="fas fa-expand"></i></button>
+        </div>
+    </div>
+    <div class="settings-panel" id="settingsPanel">
+        <label for="qualitySelect">Calidad:</label>
+        <select id="qualitySelect">
+            <option value="1080p">1080p</option>
+            <option value="720p">720p</option>
+            <option value="480p">480p</option>
+        </select>
+        <label for="speedSelect">Velocidad:</label>
+        <select id="speedSelect">
+            <option value="1">Normal</option>
+            <option value="1.5">1.5x</option>
+            <option value="2">2x</option>
+        </select>
+        <label for="subtitlesSelect">Subtítulos:</label>
+        <select id="subtitlesSelect">
+            <option value="off">Apagado</option>
+            <option value="es">Español</option>
+            <option value="en">Inglés</option>
+        </select>
+    </div>
+</div>
+
+<script>
+    const video = document.getElementById('video');
+    const playPauseButton = document.getElementById('playPause');
+    const backwardButton = document.getElementById('backward');
+    const forwardButton = document.getElementById('forward');
+    const progress = document.getElementById('progress');
+    const progressFilled = document.querySelector('.progress-filled');
+    const timeDisplay = document.getElementById('time');
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    const spinner = document.getElementById('spinner');
+    const muteButton = document.getElementById('muteButton');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const controls = document.getElementById('controls');
+    const bottomControls = document.getElementById('bottomControls');
+    const settingsButton = document.getElementById('settings');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const qualitySelect = document.getElementById('qualitySelect');
+    const speedSelect = document.getElementById('speedSelect');
+    const subtitlesSelect = document.getElementById('subtitlesSelect');
+
+    let isDragging = false;
+    let controlsVisible = true;
+
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
+
+    playPauseButton.addEventListener('click', () => {
+        if (video.paused) {
+            video.play();
+            playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            video.pause();
+            playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    });
+
+    backwardButton.addEventListener('click', () => {
+        video.currentTime -= 10;
+    });
+
+    forwardButton.addEventListener('click', () => {
+        video.currentTime += 10;
+    });
+
+    video.addEventListener('waiting', () => {
+        spinner.style.display = 'block';
+    });
+
+    video.addEventListener('playing', () => {
+        spinner.style.display = 'none';
+    });
+
+    video.addEventListener('timeupdate', () => {
+        if (!isDragging) {
+            const percent = (video.currentTime / video.duration) * 100;
+            progressFilled.style.width = `${percent}%`;
+            timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+        }
+    });
+
+    const updateProgress = (e) => {
+        const offsetX = e.offsetX || e.touches[0].pageX - progress.offsetLeft;
+        const newTime = (offsetX / progress.offsetWidth) * video.duration;
+        video.currentTime = newTime;
+        const percent = (video.currentTime / video.duration) * 100;
+        progressFilled.style.width = `${percent}%`;
+    };
+
+    progress.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updateProgress(e);
+    });
+
+    progress.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            updateProgress(e);
+        }
+    });
+
+    progress.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    progress.addEventListener('mouseleave', () => {
+        isDragging = false;
+    });
+
+    progress.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        updateProgress(e);
+    });
+
+    progress.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            updateProgress(e);
+        }
+    });
+
+    progress.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+
+    fullscreenButton.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            videoContainer.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    });
+
+    muteButton.addEventListener('click', () => {
+        video.muted = !video.muted;
+        muteButton.innerHTML = video.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+    });
+
+    volumeSlider.addEventListener('input', (e) => {
+        video.volume = e.target.value;
+    });
+
+    video.addEventListener('click', () => {
+        controlsVisible = !controlsVisible;
+        controls.style.opacity = controlsVisible ? '1' : '0';
+        bottomControls.style.opacity = controlsVisible ? '1' : '0';
+        progress.style.opacity = controlsVisible ? '1' : '0';
+    });
+
+    settingsButton.addEventListener('click', () => {
+        settingsPanel.style.display = settingsPanel.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    speedSelect.addEventListener('change', (e) => {
+        video.playbackRate = parseFloat(e.target.value);
+    });
+
+    subtitlesSelect.addEventListener('change', (e) => {
+        console.log(`Subtítulos cambiados a: ${e.target.value}`);
+    });
+</script>
+
+</body>
+  </html

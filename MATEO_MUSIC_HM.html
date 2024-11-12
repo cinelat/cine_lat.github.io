@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mateo Music HM</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        header {
+            background: #1db954;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+        .search-container {
+            margin: 20px 0;
+        }
+        .search-input {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .search-button {
+            padding: 10px 15px;
+            background-color: #1aa34a;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .search-button:hover {
+            background-color: #148a3a;
+        }
+        section {
+            padding: 20px;
+            margin: 15px;
+            background: #181818;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+        .product {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #282828;
+            padding: 15px 0;
+        }
+        .product:last-child {
+            border-bottom: none;
+        }
+        .product img {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            margin-right: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .product h3 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #ffffff;
+        }
+        .product p {
+            margin: 5px 0;
+            color: #b3b3b3;
+        }
+        button {
+            background-color: #1db954;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #1aa34a;
+        }
+        .button-pay {
+            background-color: #007bff;
+        }
+        .button-pay:hover {
+            background-color: #0056b3;
+        }
+        audio {
+            margin-top: 10px;
+            color: #ffffff;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #1a1a1a;
+            color: #b3b3b3;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Estilos del modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #181818;
+            margin: 5% auto;
+            padding: 20px;
+            border: none;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s, slideDown 0.3s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(0); }
+        }
+        .close {
+            color: #b3b3b3;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-header {
+            border-bottom: 1px solid #282828;
+            padding-bottom: 10px;
+        }
+        .modal-body {
+            margin: 15px 0;
+        }
+        .modal-footer {
+            text-align: right;
+        }
+
+        /* Animación de cierre */
+        .fadeOut {
+            animation: fadeOut 0.3s forwards;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .slideUp {
+            animation: slideUp 0.3s forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50px); }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mateo Music HM</h1>
+        <!-- Imagen del encabezado -->
+        <img src="https://i.ibb.co/G9yfwms/Classic-Rock-Country-Guitar-Music-Vintage-Retro-logo-template-20241112-082425-0000-removebg-preview.png" alt="Banner de Mateo Music" class="header-image">
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Buscar pistas..." oninput="searchProducts()">
+        </div>
+    </header>
+    
+    <section id="tienda">
+        <h2>Tienda de Instrumentales</h2>
+        
+        <!-- Primer producto -->
+        <div class="product" data-name="Qué lindo son tus ojos">
+            <img src="https://i.ibb.co/5WxQJKg/Logotipo-maquilladora-ilustrativo-rosa-20241103-203133-0000.png" alt="Pista 1">
+            <div>
+                <h3>Qué lindo son tus ojos (Instrumental - Versión Urbana)</h3>
+                <p>Descripción de la pista. Duración: 3:30</p>
+                <p>Precio: <strong>Gratis</strong></p>
+                <audio controls>
+                    <source src="https://www.dropbox.com/scl/fi/3lzbi78pff6ors0zrx6ah/_QUE-LINDO-SON-TUS-OJOS_-Instrumental-versi-n-urbana-_MateoMusic-x8z-MP3_160K.mp3?rlkey=8zh5jeo0vlpf20fhsc9gcatm5&st=pmh0btgu&dl=1" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+                <div>
+                    <button onclick="window.open('https://www.dropbox.com/scl/fi/3lzbi78pff6ors0zrx6ah/_QUE-LINDO-SON-TUS-OJOS_-Instrumental-versi-n-urbana-_MateoMusic-x8z-MP3_160K.mp3?rlkey=8zh5jeo0vlpf20fhsc9gcatm5&st=pmh0btgu&dl=1', '_blank')">Descargar Gratis</button>
+                    <button class="button-pay" onclick="buyBeat('¿Qué lindo son tus ojos?')">Comprar por $5.00</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segundo producto -->
+        <div class="product" data-name="Terco Corazón">
+            <img src="https://i.ibb.co/Pt4YdMS/Logo-Marca-de-Ropa-Urban-Grunge-Negro-y-Blanco-20241103-202515-0000.png" alt="Pista 2">
+            <div>
+                <h3>Terco Corazón (Instrumental - Versión Urbana)</h3>
+                <p>Descripción de la pista. Duración: 3:45</p>
+                <p>Precio: <strong>Gratis</strong></p>
+                <audio controls>
+                    <source src="https://www.dropbox.com/scl/fi/700mi7a7t8v2483vh5myi/_TERCO-CORAZON_-Instrumental-versi-n-urbana-_MateoMusic-x8z-MP3_160K.mp3?rlkey=v20dxz32rgdjzgbpkil3kztjm&st=949v27g1&dl=1" type="audio/mpeg">
+                    Tu navegador no soporta el elemento de audio.
+                </audio>
+                <div>
+                    <button onclick="window.open('https://www.dropbox.com/scl/fi/700mi7a7t8v2483vh5myi/_TERCO-CORAZON_-Instrumental-versi-n-urbana-_MateoMusic-x8z-MP3_160K.mp3?rlkey=v20dxz32rgdjzgbpkil3kztjm&st=949v27g1&dl=1', '_blank')">Descargar Gratis</button>
+                    <button class="button-pay" onclick="buyBeat('Terco Corazón')">Comprar por $5.00</button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    
+    <footer>
+        <p>&copy; 2023 Tienda de Beats. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Modal para mostrar mensajes de alerta -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeAlertModal()">&times;</span>
+                <h2>Resultados de Búsqueda</h2>
+            </div>
+            <div class="modal-body">
+                <p id="alertMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeAlertModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar mensajes -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle">Mensaje</h2>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function buyBeat(beat) {
+            showModal('Estás comprando: ' + beat + ' por $5.00. Proceso de pago en desarrollo.', 'Compra');
+        }
+
+        function showModal(message, title) {
+            document.getElementById('modalMessage').innerText = message;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        function closeAlertModal() {
+            document.getElementById('alertModal').style.display = "none";
+        }
+
+        // Cerrar el modal si se hace clic fuera de él
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('myModal')) {
+                closeModal();
+            } else if (event.target == document.getElementById('alertModal')) {
+                closeAlertModal();
+            }
+        }
+
+        function removeAccents(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function searchProducts() {
+            const input = removeAccents(document.getElementById('searchInput').value.toLowerCase().replace(/[.,;:]/g, '').trim());
+            const products = document.querySelectorAll('.product');
+            let found = false;
+
+            products.forEach(product => {
+                const productName = removeAccents(product.getAttribute('data-name').toLowerCase().replace(/[.,;:]/g, ''));
+                if (productName.includes(input)) {
+                    product.style.display = 'flex';
+                    found = true;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+            if (!found) {
+                showAlertModal('No se encontraron resultados para "' + input + '".'); // Mensaje más elaborado
+            }
+        }
+
+        function showAlertModal(message) {
+            document.getElementById('alertMessage').innerText = message;
+            document.getElementById('alertModal').style.display = "block";
+        }
+    </script>
+</body>
+      </html
